@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intaan - Your Online Shopping Point</title>
+    <style>
+        /* Basic Reset and Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 2.0rem;
+            font-weight: bold;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #3498db;
+        }
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        .cart-icon::after {
+            content: '🛒';
+            font-size: 1.2rem;
+            margin-left: 0.5rem;
+        }
+        .cart-count {
+            background: #3ea1e8;
+            border-radius: 50%;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            color: white;
+            text-align: center;
+            padding: 150px 0 100px; /* Adjusted for fixed header */
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background: white;
+        }
+        .about h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .about-text p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        .about-image {
+            background: #ddd;
+            height: 300px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        /* Products Section */
+        .products {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        .products h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: #ddd; /* Placeholder for image */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem; /* Placeholder text/icon */
+        }
+        .product-info {
+            padding: 1rem;
+        }
+        .product-info h3 {
+            margin-bottom: 0.5rem;
+        }
+        .product-info p {
+            color: #0b0b0b;
+            margin-bottom: 1rem;
+        }
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #2980b9;
+        }
+        .btn.added {
+            background: #27ae60;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background: white;
+        }
+        .contact h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        .contact-info h3 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .contact-info p {
+            margin-bottom: 1rem;
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .contact-form button {
+            background: #3498db;
+            color: white;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .contact-form button:hover {
+            background: #2980b9;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* Hide nav on mobile; add hamburger menu in JS if needed */
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">Intaan</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="cart-icon" id="cartIcon">
+                Cart <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Welcome to Intaan</h1>
+            <p>Discover Amazing Products At Unbeatable Prices. Shop Now and Elevate Your Lifestyle!</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Intaan</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Intaan is your trusted online shopping destination for females, offering a wide range of high-quality products of fashion by Nishant Sharma. Founded in 2025, we aim to make shopping easy, affordable, and enjoyable for females.</p>
+                    <p>With fast shipping, secure payments, and exceptional customer service, we're here to help you find exactly what you need.</p>
+                </div>
+                <div class="about-image"><img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/79622873-fdb8-41c3-94aa-cd3f77e92753.png" width="700" height="300" alt="Intaan"></div> <!-- Placeholder for about image -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <h2>Featured Products</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image"><img src="https://images.biba.in/dw/image/v2/BKQK_PRD/on/demandware.static/-/Sites-biba-product-catalog/default/dw8b75abcc/images/ss25/crpkt21674ss25blu_1.jpg?sw=502&sh=753&q=100&strip=false" alt="Kurta" height="650"></div>
+                    <div class="product-info">
+                        <h3>Kurta</h3>
+                        <p>Discover trendy kurtas & kurtis at Great prices. Stylish picks for every occasion.</p>
+                        <button class="btn" onclick="explore('Kurta', 299)">Explore</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image"><img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRyJUrKCs0jRZJYUV1cf-_BJs30LRTZJtxWobIDSyXjCnBGAtSaXXWLuLanFyAzKEv9e3wCILSjPwqCGJxa4aWh2ebZhVTFrJqpnVO5l5w" alt="Casual T-Shirt" height="650"></div>
+                    <div class="product-info">
+                        <h3>Casual T-Shirt</h3>
+                        <p>Comfortable cotton blend for everyday wear.</p>
+                        <br>
+                        <button class="btn" onclick="explore('Casual T-Shirt', 19)">Explore</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image"><img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRmcbizwfZDLbKC0DQwnclnZm-eoWuR1kIHZsFcIQ5FiXdkFvC8dJEmdsPqb1DTlHbyaNaQPkKfgXCzoso9H7w4iby1vourRVm8iFB_V4FY" alt="Co-Ord Sets" height="650"></div>
+                    <div class="product-info">
+                        <h3>Co-Ord Sets</h3>
+                        <p>Buy Women Co-Ord Sets products. Huge Collection. Great Offers and Discounts.</p>
+                        <button class="btn" onclick="explore('Co-Ord Sets', 899)">Explore</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image"><img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQ-Xrr8T6lEw1PJnJaOzFzlWAEbNpCgzGIRvuyOWYh-7Pkg0k3b3STzfoNr6x3V_PO3wLMzGeUmdjrTWChKg8IDrTV0YrlCLS1njYPTcuu6WxYdXDFAEFvB" alt="Dresses & Gowns" height="650"></div>
+                    <div class="product-info">
+                        <h3>Dresses & Gowns</h3>
+                        <p>Huge collection of women's dresses & gowns at low offer price & discounts.</p>
+                        <button class="btn" onclick="explore('Dresses & Gowns', 899)">Explore</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image"><img src="https://i.pinimg.com/1200x/af/17/9c/af179ca268d373890ef7d31017093652.jpg" alt="Jackets & Blazer" height="750"></div>
+                    <div class="product-info">
+                        <h3>Jackets & Blazer</h3>
+                        <p>Jackets for womens – Carry them off in style. AND presents a wide array of ladies' jackets and blazer for women in diverse patterns, colors, fabrics, fits, ....</p>
+                        <button class="btn" onclick="explore('Jackets & Blazer', 149)">Explore</button>
+                    </div>
+                </div>
+                 <div class="product-card">
+                    <div class="product-image"><img src="https://i.pinimg.com/736x/0e/3f/99/0e3f99baa02b70b00adf2cc32ce3f0a6.jpg" alt="Sarees" height="750"></div>
+                    <div class="product-info">
+                        <h3>Sarees</h3>
+                        <p>Elegant and traditional wear.</p>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <button class="btn" onclick="explore('Sarees', 149)">Explore</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image"><img src="https://i.pinimg.com/736x/f3/e1/23/f3e123a54923c5325c0b995b3228a3cd.jpg" alt="Bottom Wear" height="750"></div>
+                    <div class="product-info">
+                        <h3>Foot Wear</h3>
+                        <p>Explore different types of trendy Foot wear.</p>
+                        <br>
+                        <br>
+                        <br>
+                        <button class="btn" onclick="explore('Foot Wear', 149)">Explore</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image"><img src="https://i.pinimg.com/736x/f2/09/97/f20997002a18b1b34743a1486e883727.jpg" alt="Jewellery" height="750"></div>
+                    <div class="product-info">
+                        <h3>Jewellery</h3>
+                        <p>Shop latest collection of designer fashion, artificial jewellery from a wide range of Necklaces, Earrings, Bangles, and more.</p>
+                        <button class="btn" onclick="explore('Jewellery', 149)">Explore</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p><strong>Email:</strong> Nishantsharma0973@gmail.com</p>
+                    <p><strong>Phone:</strong> +91 9461966103</p>
+                    <p><strong>Address:</strong> 196-197, Govind Nagar East, Jaipur, Rajasthan, India</p>
+                    <p>We're here to help! Reach out for any questions or support.</p>
+                </div>
+                <form class="contact-form" onsubmit="handleSubmit(event)">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" rows="5" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Intaan. All rights reserved. | <a href="#" style="color: #3498db;">Privacy Policy</a> | <a href="#" style="color: #3498db;">Terms of Service</a></p>
+        </div>
+    </footer>
+</body>
+</html>
